@@ -40,7 +40,8 @@ namespace SimpleANN.Test
                     new[] { hidden2 }
                 }
             });
-            var conns = connections.Instructions;
+            var instructions = connections.Instructions;
+
             
             Debugger.Break();
             

@@ -7,10 +7,10 @@ namespace SimpleANN
 {
     public class Connections
     {
-        public readonly int[][] Instructions;
+        public readonly Instruction[] Instructions;
         private readonly LayerConfiguration layerConfiguration;
 
-        public Connections(int[][] instructions)
+        public Connections(Instruction[] instructions)
         {
             this.Instructions = instructions;
         }
@@ -21,7 +21,7 @@ namespace SimpleANN
             this.Instructions = Create(connections);
         }
 
-        private int[][] Create(int[][][] connections)
+        private Instruction[] Create(int[][][] connections)
         {
             connections = (int[][][])connections.Clone();
 
@@ -53,8 +53,8 @@ namespace SimpleANN
                 var fromNodes = connection[0];
                 return fromNodes.Select(fromNode =>
                 {
-                    var toNodes = connection.Skip(1).SelectMany(m => m);
-                    return toNodes.Prepend(fromNode).ToArray();
+                    var toNodes = connection.Skip(1).SelectMany(m => m).ToArray();
+                    return new Instruction(fromNode, toNodes);
                 }).ToArray();
             }).ToArray();
 
